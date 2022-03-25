@@ -8,7 +8,7 @@
 package com.example.braintrainer;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button startButton, button0, button1, button2, button3, playAgainButton;
     TextView resultTextView, sumTextView, scoreTextView,timerTextView;
+    ConstraintLayout gameLayout;
 
     ArrayList<Integer> answers = new ArrayList<Integer>();
     int locationOfCorrectAnswer;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     public void start(View view) {
 
         startButton.setVisibility(View.INVISIBLE);
+        gameLayout.setVisibility(View.VISIBLE);
+        // any view not important just needs an argument so we use that one
+        playAgain(findViewById(R.id.timerTextView));
     }
     //*******************************************  chooseAnswer function
     public void chooseAnswer(View view) {
@@ -89,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
         numberOfQuestions = 0;
         timerTextView.setText("30s");
         scoreTextView.setText(Integer.toString(score) + "/" + Integer.toString(numberOfQuestions));
-
         random();
         playAgainButton.setVisibility(View.INVISIBLE);
+        resultTextView.setText("");
 
         new CountDownTimer(30100, 1000) {
 
@@ -123,9 +127,10 @@ public class MainActivity extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
         playAgainButton = findViewById(R.id.playAgainButton);
+        gameLayout = findViewById(R.id.gameLayout);
 
-        // any view not important just needs an argument so we use that one
-        playAgain(findViewById(R.id.timerTextView));
+        startButton.setVisibility(View.VISIBLE);
+        gameLayout.setVisibility(View.INVISIBLE);
 
     }
 }
